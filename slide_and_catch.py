@@ -1,5 +1,12 @@
 import simpleGE, pygame, random
 
+class Bubble(simpleGE.Sprite):
+    def __init__(self, scene):
+        super().__init__(scene)
+        self.setImage("bubble.png")
+        self.setSize(30, 30)
+        self.position = (100, 50)
+        
 class Sword(simpleGE.Sprite):
     def __init__(self, scene):
         super().__init__(scene)
@@ -18,9 +25,10 @@ class Game(simpleGE.Scene):
     def __init__(self):
         super().__init__()
         self.setImage("cosmos.jpg")
-        self.sword = Sword(self)        
+        self.sword = Sword(self)
+        self.bubble = Bubble(self)
         
-        self.sprites = [self.sword]
+        self.sprites = [self.sword, self.bubble]
         
 def main():
     game = Game()
