@@ -5,8 +5,17 @@ class Bubble(simpleGE.Sprite):
         super().__init__(scene)
         self.setImage("bubble.png")
         self.setSize(30, 30)
-        self.position = (100, 50)
+        self.reset()
         
+    def reset(self):
+        self.y = 0
+        self.x = random.randint(0, self.screenWidth)
+        self.dy = random.randint(3, 8)
+    
+    def check(self):
+        if self.bottom > self.screenHeight:
+            self.reset()
+            
 class Sword(simpleGE.Sprite):
     def __init__(self, scene):
         super().__init__(scene)
