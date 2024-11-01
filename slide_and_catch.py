@@ -40,9 +40,9 @@ class Game(simpleGE.Scene):
         
         self.sprites = [self.sword, self.bubble]
         
-        def process(self):
-            if self.sword.collidesWith(self.bubble):
-                self.bubble.reset()
+    def process(self):
+        if self.sword.collidesWith(self.bubble):
+            self.bubble.reset()
         
 def main():
     game = Game()
