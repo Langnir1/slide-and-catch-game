@@ -34,10 +34,15 @@ class Game(simpleGE.Scene):
     def __init__(self):
         super().__init__()
         self.setImage("cosmos.jpg")
+        
         self.sword = Sword(self)
         self.bubble = Bubble(self)
         
         self.sprites = [self.sword, self.bubble]
+        
+        def process(self):
+            if self.sword.collidesWith(self.bubble):
+                self.bubble.reset()
         
 def main():
     game = Game()
