@@ -38,10 +38,13 @@ class Game(simpleGE.Scene):
         self.sword = Sword(self)
         self.bubble = Bubble(self)
         
+        self.bubblePop = simpleGE.Sound("bubble-pop.mp3")
+        
         self.sprites = [self.sword, self.bubble]
         
     def process(self):
         if self.sword.collidesWith(self.bubble):
+            self.bubblePop.play()
             self.bubble.reset()
         
 def main():
