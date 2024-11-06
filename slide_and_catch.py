@@ -12,7 +12,7 @@ class Bubble(simpleGE.Sprite):
         self.x = random.randint(0, self.screenWidth)
         self.dy = random.randint(3, 8)
     
-    def check(self):
+    def checkBounds(self):
         if self.bottom > self.screenHeight:
             self.reset()
             
@@ -36,16 +36,22 @@ class Game(simpleGE.Scene):
         self.setImage("cosmos.jpg")
         
         self.sword = Sword(self)
-        self.bubble = Bubble(self)
+       # self.bubble = Bubble(self)
+        self.numBubbles = 10
+        self.bubble = []
+        for i in range(self.numBubbles):
+            self.bubble.append(Bubble(self))
         
         self.bubblePop = simpleGE.Sound("bubble-pop.mp3")
         
-        self.sprites = [self.sword, self.bubble]
+        self.sprites = [self.sword,
+                        self.bubble]
         
     def process(self):
-        if self.sword.collidesWith(self.bubble):
-            self.bubblePop.play()
-            self.bubble.reset()
+        for bubble in self.bubble:
+            if self.sword.collidesWith(bubble):
+                self.bubblePop.play()
+                bubble.reset()
         
 def main():
     game = Game()
