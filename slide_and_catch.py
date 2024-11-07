@@ -15,6 +15,18 @@ class Bubble(simpleGE.Sprite):
     def checkBounds(self):
         if self.bottom > self.screenHeight:
             self.reset()
+
+class LabelScore(simpleGE.Label):
+    def __init__(self):
+        super().__init__()
+        self.text = "Score = 0"
+        self.center = (100, 30)
+        
+class LabelTime(simpleGE.Label):
+    def __init__(self):
+        super().__init__()
+        self.text = "Time = 0"
+        self.center = (500, 30)
             
 class Sword(simpleGE.Sprite):
     def __init__(self, scene):
@@ -36,24 +48,49 @@ class Game(simpleGE.Scene):
         self.setImage("cosmos.jpg")
         
         self.sword = Sword(self)
-       # self.bubble = Bubble(self)
         self.numBubbles = 10
         self.bubble = []
         for i in range(self.numBubbles):
             self.bubble.append(Bubble(self))
+            
+        self.score = 0
+        self.timer = simpleGE.Timer()
+        self.timer.totalTime = 10
+        
+        self.labelScore = LabelScore()
+        self.labelTime = LabelTime()
         
         self.bubblePop = simpleGE.Sound("bubble-pop.mp3")
         
         self.sprites = [self.sword,
-                        self.bubble]
+                        self.bubble,
+                        self.labelScore,
+                        self.labelTime]
+        
+        
         
     def process(self):
         for bubble in self.bubble:
             if self.sword.collidesWith(bubble):
                 self.bubblePop.play()
+                self.score += 1
+                self.labelScore.text = (f"Score = {self.score}")
                 bubble.reset()
         
+        self.labelTime.text = (f"Time = {self.timer.getTimeLeft():.2f}")
+        if self.timer.getTimeLeft() < 0:
+            print(f"If this ran, the final score should be {self.score}")
+            self.stop()
+
+class Instructions(simpleGE.Scene):
+    def __init__(self):
+        super().__init__()
+        self.setImage("bubble.png")
+        self.sprites = []
+    
 def main():
+    instructions = Instructions()
+    instructions.start()
     game = Game()
     game.start()
     
