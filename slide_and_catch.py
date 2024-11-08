@@ -86,7 +86,31 @@ class Instructions(simpleGE.Scene):
     def __init__(self):
         super().__init__()
         self.setImage("bubble.png")
-        self.sprites = []
+        
+        self.instructions = simpleGE.MultiLabel()
+        self.instructions.textLines = [
+            "Welcome to bubble pop simulator!",
+            "In this game, you control a sword that pops bubbles",
+            "Such an original name, I know. " 
+            "Using the arrow keys,",
+            "move the sword left and right popping bubbles.",
+            "Do your best to get the highest score within the time limit.",
+            "GOOD LUCK!!!"]
+        
+        self.instructions.center = (320, 150)
+        self.instructions.size = (600, 200)
+        
+        self.buttonPlay = simpleGE.Button()
+        self.buttonPlay.text = "Play"
+        self.buttonPlay.center = (100, 300)
+        
+        self.buttonQuit = simpleGE.Button()
+        self.buttonQuit.text = "Quit"
+        self.buttonQuit.center = (500, 300)
+        
+        self.sprites = [self.instructions,
+                        self.buttonPlay,
+                        self.buttonQuit]
     
 def main():
     instructions = Instructions()
