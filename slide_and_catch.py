@@ -83,9 +83,11 @@ class Game(simpleGE.Scene):
             self.stop()
 
 class Instructions(simpleGE.Scene):
-    def __init__(self):
+    def __init__(self, score):
         super().__init__()
         self.setImage("bubble.png")
+        
+        self.response = "Play"
         
         self.instructions = simpleGE.MultiLabel()
         self.instructions.textLines = [
@@ -97,6 +99,11 @@ class Instructions(simpleGE.Scene):
             "Do your best to get the highest score within the time limit.",
             "GOOD LUCK!!!"]
         
+        self.lastScore = score
+        self.labelScore = simpleGE.Label()
+        self.labelScore.text = (f"Last score: {self.lastScore}")
+        self.labelScore.center = (330, 300)
+        
         self.instructions.center = (320, 150)
         self.instructions.size = (600, 200)
         
@@ -106,17 +113,36 @@ class Instructions(simpleGE.Scene):
         
         self.buttonQuit = simpleGE.Button()
         self.buttonQuit.text = "Quit"
-        self.buttonQuit.center = (500, 300)
+        self.buttonQuit.center = (540, 300)
         
         self.sprites = [self.instructions,
+                        self.labelScore,
                         self.buttonPlay,
                         self.buttonQuit]
+        
+    def process(self):
+        if self.buttonPlay.clicked:
+            self.response = "Play"
+            self.stop()
+        if self.buttonQuit.clicked:
+            self.response = "Quit"
+            self.stop()
+            
     
 def main():
-    instructions = Instructions()
-    instructions.start()
-    game = Game()
-    game.start()
+    keepGoing = True
+    score = 0
+    
+    while keepGoing:
+        instructions = Instructions(score)
+        instructions.start()
+        
+        if instructions.response == "Play":
+            game = Game()
+            game.start()
+            score = game.score
+        else:
+            keepGoing = False
     
 if __name__ == "__main__":
     main()
