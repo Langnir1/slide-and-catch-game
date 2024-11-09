@@ -8,6 +8,9 @@ main():
 * Create variable that gets class Game()
 * start game using the start() function from simpleGE
 call main through the:
+
+* Change main() to be a while loop until keepGoing = False
+
   "If __name__ == "__main__"
 method
 ---------
@@ -68,8 +71,25 @@ New class for LabelScore
   * create variable center to position the score somewhere on screen
 ---------
 New class for LabelTime
-*Same stuff as LabelScore but the position is different
-
-
+* Same stuff as LabelScore but the position is different
+---------
+Class instructions()
+* call __init__ with self and score
+* Create a new page that appears before the game
+* Create variable response that is default to Play
+   * This will play the game automatically before any input is needed
+* create variabel instructions set to MultiLabel from simpleGE
+* Type text that explains the game
+* Create 3 variables that create 3 boxes on the instruction screen
+  * variable lastScore gets the score from the game and updates the score on the instructions page to what was just reached
+  * Variable buttonPlay is a button
+    * The text is play
+    * when clicked, the game starts
+  * variable buttonQuit is a button
+    * The text is Quit
+    * When clicked, the game ends
+* create sprites to call them on screen
+* Create process method
+  * if buttonPlay is clicked and buttonQuit are clicked, do the relevant action    
 
 
